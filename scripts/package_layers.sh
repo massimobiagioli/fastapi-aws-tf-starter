@@ -24,7 +24,8 @@ for file in $requirements_dir/requirements_*.txt; do
 
     cd "$layer_dir"
     zip -r "$layer_name.zip" .
-    rm -rf "python"
+    mv "$layer_name.zip" "../$layer_name.zip"
+    rm -rf "../$layer_name"
 
     printf "Layer packaged: $layer_name\n"
 done
