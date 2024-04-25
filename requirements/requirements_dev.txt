@@ -1,0 +1,3 @@
+-r layers/requirements_fastapi.txt
+
+uvicorn==0.29.0
