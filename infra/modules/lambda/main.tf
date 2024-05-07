@@ -6,24 +6,24 @@ resource "null_resource" "package_lambda" {
 
 resource "aws_lambda_function" "app" {
   filename      = "${path.module}/../build/lambda/lambda.zip"
-  function_name = "app"
+  function_name = var.function_name
   role          = aws_iam_role.iam_for_app.arn
   depends_on    = [null_resource.package_lambda]
-  handler       = "app.lambda.handler"
-  layers        = [aws_lambda_layer_version.lambda_layer_fastapi.arn]
-  runtime       = "python3.12"
+  handler       = var.handler
+  layers        = var.layers
+  runtime       = var.runtime
   environment {
     variables = {
-      for pair in split("\n", data.aws_ssm_parameter.app_secret.value) :
+      for pair in split("\n", var.secret_value) :
       split("=", pair)[0] => split("=", pair)[1]
     }
   }
 
-  tags = local.common_tags
+  tags = var.tags
 }
 
 resource "aws_iam_role" "iam_for_app" {
-  name = "iam_for_app"
+  name = var.iam_role_name
 
   assume_role_policy = <<EOF
 {

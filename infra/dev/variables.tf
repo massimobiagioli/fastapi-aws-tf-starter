@@ -2,21 +2,6 @@ locals {
   owner        = "Massimo Biagioli"
   service_name = "tf-starter"
 
-  layers = {
-    fastapi = {
-      name                = "fastapi-layer"
-      description         = "FastAPI layer"
-      compatible_runtimes = ["python3.12"]
-    }
-  }
-
-  functions = {
-    main = {
-      name    = "app"
-      handler = "app.lambda.handler"
-    }
-  }
-
   common_tags = {
     Service = local.service_name
     Owner   = local.owner

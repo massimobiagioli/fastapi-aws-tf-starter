@@ -4,8 +4,8 @@ resource "aws_ssm_parameter" "app_secret" {
   }
 
   type  = "SecureString"
-  name  = "app_secret"
+  name  = var.name
   value = "k1=v1\nk2=v2"
 
-  tags = local.common_tags
+  tags = var.tags
 }

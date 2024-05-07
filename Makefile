@@ -7,7 +7,7 @@ install-dev: # Install dev dependencies
 	rm -rf .venv && \
 	$(run-venv) .venv && \
 	source .venv/bin/activate && \
-	pip install -r requirements/requirements_dev.txt
+	pip install -r requirements_dev.txt
 
 start-dev: # Start server in dev mode
 	$(run-uvicorn) app.server:app --reload
