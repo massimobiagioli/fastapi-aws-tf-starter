@@ -3,7 +3,7 @@
 run-venv = python -m venv
 run-uvicorn = python -m uvicorn
 
-install-dev: # Install dev dependencies
+install-dev: # Install dev dependencies	
 	rm -rf .venv && \
 	$(run-venv) .venv && \
 	source .venv/bin/activate && \
