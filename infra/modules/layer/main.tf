@@ -3,7 +3,7 @@ resource "null_resource" "package_layers" {
     requirements = filesha1(var.requirements_file)
   }
   provisioner "local-exec" {
-    command = "cd ${path.module} && ./package_layers.sh"
+    command = "cd ${path.module} && ./package_layers.sh ${var.name} ${var.requirements_file} ${var.build_dir}"
   }
 }
 

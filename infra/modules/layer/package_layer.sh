@@ -1,31 +1,34 @@
 #!/bin/bash
 
+# Package a layer for a Lambda function
+#
+# Parameters:
+#   $1: Layer name
+#   $2: Path of the requirements file
+#   $3: Build directory
+#
+# Example:
+#   ./package_layer.sh fastapi_layer ../../../requirements_layer_fastapi.txt ../../../build/layers
+
 cd "$(dirname "$0")"
 
-requirements_dir="../requirements/layers"
-output_dir="../build/layers"
+layer_dir="$3/$1"
 
-mkdir -p "$output_dir"
+mkdir -p "$layer_dir"
 
-for file in $requirements_dir/requirements_*.txt; do
-    layer_name=$(basename "$file" .txt)
-    layer_name=${layer_name#"requirements_"}_layer    
-    layer_dir="$output_dir/$layer_name"
+printf "Packaging layer: $1\n"
 
-    printf "Packaging layer: $layer_name\n"
-    
-    pip install \
-        --platform manylinux2014_x86_64 \
-        --implementation cp \
-        --only-binary=:all: \
-        --upgrade \
-        -r "$file" \
-        -t "$layer_dir/python"
+pip install \
+    --platform manylinux2014_x86_64 \
+    --implementation cp \
+    --only-binary=:all: \
+    --upgrade \
+    -r "$2" \
+    -t "$layer_dir/python"
 
-    cd "$layer_dir"
-    zip -r "$layer_name.zip" .
-    mv "$layer_name.zip" "../$layer_name.zip"
-    rm -rf "../$layer_name"
+cd "$layer_dir"
+zip -r "$1.zip" .
+mv "$1.zip" "../$1.zip"
+rm -rf "../$1"
 
-    printf "Layer packaged: $layer_name\n"
-done
+printf "Layer packaged: $1\n"
