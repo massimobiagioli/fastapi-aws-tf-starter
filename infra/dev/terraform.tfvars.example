@@ -1,3 +1,6 @@
+service_name = "aws-tf-starter"
+owner        = "Nome Cognome"
+
 aws_params = {
   region                                 = "eu-west-1"
   profile                                = "default"

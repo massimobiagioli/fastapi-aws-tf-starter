@@ -1,12 +1,12 @@
 resource "null_resource" "package_lambda" {
   provisioner "local-exec" {
-    command = "cd ${path.module}/.. && scripts/package_lambda.sh"
+    command = "cd ${path.module} && ./package_lambda.sh ${var.name} ${var.source_dir} ${var.build_dir}"
   }
 }
 
 resource "aws_lambda_function" "app" {
   filename      = "${path.module}/../build/lambda/lambda.zip"
-  function_name = var.function_name
+  function_name = var.name
   role          = aws_iam_role.iam_for_app.arn
   depends_on    = [null_resource.package_lambda]
   handler       = var.handler

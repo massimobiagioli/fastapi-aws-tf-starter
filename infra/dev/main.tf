@@ -44,9 +44,11 @@ module "layer_fastapi" {
 module "lambda" {
   source = "../modules/lambda"
 
-  function_name = "app"
+  name          = "app"
+  source_dir    = "../../app"
   handler       = "app.lambda.handler"
   runtime       = "python3.12"
+  build_dir     = "../build/layers"
   layers        = [module.layer_fastapi.layer_arn]
   iam_role_name = "iam_for_app"
   secret_value  = module.ssm.secret_value

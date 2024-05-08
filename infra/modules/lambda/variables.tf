@@ -1,5 +1,10 @@
-variable "function_name" {
+variable "name" {
   description = "Function name"
+  type        = string
+}
+
+variable "source_dir" {
+  description = "Source directory"
   type        = string
 }
 
@@ -13,9 +18,9 @@ variable "runtime" {
   type        = string
 }
 
-variable "tags" {
-  description = "Tags"
-  type        = map(string)
+variable "build_dir" {
+  description = "Layers directory"
+  type        = string
 }
 
 variable "layers" {
@@ -25,7 +30,7 @@ variable "layers" {
 
 variable "iam_role_name" {
   description = "IAM role name"
-  type        = string  
+  type        = string
 }
 
 variable "secret_value" {
@@ -36,4 +41,9 @@ variable "secret_value" {
 variable "secret_arn" {
   description = "Secret ARN"
   type        = string
+}
+
+variable "tags" {
+  description = "Tags"
+  type        = map(string)
 }
